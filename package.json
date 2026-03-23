@@ -1,0 +1,32 @@
+{
+  "name": "envoi-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for Envoi.work — give any AI agent a real email address",
+  "bin": {
+    "envoi-mcp": "./dist/index.js"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "email",
+    "ai",
+    "agent",
+    "envoi",
+    "model-context-protocol"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^5.9.3"
+  }
+}
