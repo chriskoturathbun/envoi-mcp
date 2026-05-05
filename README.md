@@ -1,30 +1,24 @@
 # envoi-mcp
 
-Give any AI agent a real email address. MCP server for [Envoi.work](https://envoi.work).
+MCP server for [envoi.work](https://envoi.work) — give any AI agent a real `@envoi.work` email address.
 
-## Quick Start
+## Quickstart
 
-```bash
-npx envoi-mcp
-```
+1. **Sign up and get an API key.** Either:
+   - Fastest: `npm install -g envoi-cli && envoi login` ([envoi-cli](https://www.npmjs.com/package/envoi-cli))
+   - Or: sign up at [envoi.work/signup](https://envoi.work/signup) and create a key at [envoi.work/account/api-keys](https://envoi.work/account/api-keys)
 
-No install required. Just add it to your AI client's MCP configuration.
+2. **Add the MCP server to your client** (examples below).
 
-## Setup
+3. **Restart your client** and ask it to send an email.
 
-### 1. Get an API Key
-
-Register your agent at [envoi.work](https://envoi.work) to get an API key and an `@envoi.work` email address.
-
-### 2. Configure Your AI Client
-
-#### Claude Code
+## Claude Code
 
 ```bash
-claude mcp add envoi-mcp -e ENVOI_API_KEY=your-key-here -- npx envoi-mcp
+claude mcp add envoi-mcp -e ENVOI_API_KEY=ek_your_key_here -- npx envoi-mcp
 ```
 
-#### Claude Desktop
+## Claude Desktop
 
 Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
@@ -34,15 +28,13 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
     "envoi": {
       "command": "npx",
       "args": ["envoi-mcp"],
-      "env": {
-        "ENVOI_API_KEY": "your-key-here"
-      }
+      "env": { "ENVOI_API_KEY": "ek_your_key_here" }
     }
   }
 }
 ```
 
-#### Cursor
+## Cursor
 
 Add to `.cursor/mcp.json`:
 
@@ -52,99 +44,51 @@ Add to `.cursor/mcp.json`:
     "envoi": {
       "command": "npx",
       "args": ["envoi-mcp"],
-      "env": {
-        "ENVOI_API_KEY": "your-key-here"
-      }
+      "env": { "ENVOI_API_KEY": "ek_your_key_here" }
     }
   }
 }
 ```
 
-#### Windsurf
+## Windsurf
 
-Add to `~/.windsurf/mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "envoi": {
-      "command": "npx",
-      "args": ["envoi-mcp"],
-      "env": {
-        "ENVOI_API_KEY": "your-key-here"
-      }
-    }
-  }
-}
-```
+Add to `~/.windsurf/mcp.json` with the same shape as above.
 
 ## Tools
 
-### `register_agent`
+| Tool | What it does |
+|---|---|
+| `register_agent` | Create a new agent and mint its `@envoi.work` address (no API key required) |
+| `send_email` | Send email from the agent's address |
+| `check_inbox` | List recent inbox messages |
+| `read_email` | Read a specific email by id |
+| `reply_to_email` | Reply in thread to a received email |
 
-Register a new AI agent on Envoi and get a real email address.
+## Environment variables
 
-```
-Input:  { name, email, skills[], bio? }
-Output: { api_key, email_address, profile_url, handle }
-```
-
-### `send_email`
-
-Send an email from your agent's @envoi.work address.
-
-```
-Input:  { to, subject, body }
-Output: { success, message_id }
-```
-
-### `check_inbox`
-
-List recent emails in the agent's inbox.
-
-```
-Input:  { limit? }
-Output: [{ id, from, subject, preview, date, read }]
-```
-
-### `read_email`
-
-Read the full content of a specific email.
-
-```
-Input:  { email_id }
-Output: { from, to, subject, body, date, thread_id }
-```
-
-### `reply_to_email`
-
-Reply to an email, maintaining the conversation thread.
-
-```
-Input:  { email_id, body }
-Output: { success, message_id }
-```
-
-## Environment Variables
-
-| Variable | Required | Description |
+| Variable | Required | Default |
 |---|---|---|
-| `ENVOI_API_KEY` | Yes* | Your Envoi API key (*not required for `register_agent`) |
-| `ENVOI_BASE_URL` | No | API base URL (default: `https://envoi.work`) |
+| `ENVOI_API_KEY` | Yes (except for `register_agent`) | — |
+| `ENVOI_BASE_URL` | No | `https://envoi.work` |
+
+## Companion CLI
+
+For terminal access to the same account — inbox, send, reply, agent switching — install [`envoi-cli`](https://www.npmjs.com/package/envoi-cli):
+
+```bash
+npm install -g envoi-cli
+envoi login
+envoi inbox
+```
 
 ## Development
 
 ```bash
-git clone https://github.com/yourusername/envoi-mcp.git
+git clone https://github.com/chriskoturathbun/envoi-mcp.git
 cd envoi-mcp
 npm install
 npm run build
-```
-
-Test locally:
-
-```bash
-ENVOI_API_KEY=your-key node dist/index.js
+ENVOI_API_KEY=ek_... node dist/index.js
 ```
 
 ## License

@@ -53,7 +53,7 @@ async function envoiFetch(
 const server = new McpServer(
   {
     name: "envoi-mcp",
-    version: "0.1.0",
+    version: "0.2.1",
   },
   {
     capabilities: {
