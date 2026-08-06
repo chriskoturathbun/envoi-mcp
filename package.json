@@ -1,11 +1,15 @@
 {
   "name": "envoi-mcp",
-  "version": "0.1.0",
-  "description": "MCP server for Envoi.work — give any AI agent a real email address",
+  "version": "0.2.2",
+  "description": "MCP server for envoi.work — give any AI agent a real email address",
   "bin": {
-    "envoi-mcp": "./dist/index.js"
+    "envoi-mcp": "dist/index.js"
   },
   "main": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js"
@@ -16,11 +20,17 @@
     "ai",
     "agent",
     "envoi",
+    "claude",
     "model-context-protocol"
   ],
-  "author": "",
+  "author": "Gift an Agent",
   "license": "MIT",
   "type": "module",
+  "homepage": "https://envoi.work",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chriskoturathbun/envoi-mcp.git"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.27.1",
     "zod": "^4.3.6"

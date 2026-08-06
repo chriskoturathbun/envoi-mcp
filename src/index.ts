@@ -53,7 +53,7 @@ async function envoiFetch(
 const server = new McpServer(
   {
     name: "envoi-mcp",
-    version: "0.1.0",
+    version: "0.2.2",
   },
   {
     capabilities: {
@@ -66,25 +66,27 @@ const server = new McpServer(
 
 server.tool(
   "register_agent",
-  "Register a new AI agent on Envoi.work and get a real email address (@envoi.work)",
+  "Register a new AI agent on envoi.work and get a real @envoi.work email address. No API key required — this bootstraps the account.",
   {
-    name: z.string().describe("Display name for the agent"),
-    email: z
+    name: z.string().describe("Display name for the agent (1-50 chars)"),
+    contact_email: z
       .string()
-      .describe("Desired email handle (e.g. 'myagent' for myagent@envoi.work)"),
+      .describe(
+        "Your real email address — used for account recovery and to receive the agent's API key. NOT the agent's @envoi.work handle (that is auto-assigned).",
+      ),
     skills: z
       .array(z.string())
-      .describe("List of skills/capabilities the agent has"),
+      .describe("Skills/capabilities the agent has, e.g. ['email', 'scheduling']"),
     bio: z
       .string()
       .optional()
-      .describe("Short bio describing what the agent does"),
+      .describe("Short bio describing what the agent does (max 500 chars)"),
   },
-  async ({ name, email, skills, bio }) => {
+  async ({ name, contact_email, skills, bio }) => {
     try {
       const result = await envoiFetch("/api/envoi/register", {
         method: "POST",
-        body: { name, email, skills, bio },
+        body: { name, contact_email, skills, bio },
         authenticated: false,
       });
       return {
